@@ -284,7 +284,7 @@ class ParshiosTest extends \PHPUnit\Framework\TestCase
     }
 
     /** @test */
-    public function vayakheil_pekudei_in_longer_year()
+    public function vayakheil_pekudei_in_longer_year_issues_33()
     {
         $this->assertEquals('Vayakheil', Zman::parse('03/22/2025')->parsha);
         $this->assertEquals('Pekudei', Zman::parse('03/29/2025')->parsha);
@@ -293,5 +293,7 @@ class ParshiosTest extends \PHPUnit\Framework\TestCase
         // Acording to https://www.chabad.org/calendar/view/day.asp?tdate=3/14/2037 
         // and https://www.hebcal.com/sedrot/5797?i=off it should be together
         $this->assertEquals('Vayakheil - Pekudei', Zman::parse('03/14/2037')->parsha);
+
+        $this->assertEquals('Vayakheil', Zman::parse('03/11/2045')->parsha);
     }
 }
