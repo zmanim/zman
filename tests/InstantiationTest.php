@@ -46,5 +46,11 @@ class InstantiationTest extends \PHPUnit\Framework\TestCase
         $this->assertInstanceOf(Zman::class, $zman);
         $this->assertEquals('Feb 2, 2016', $zman->toFormattedDateString());
         $this->assertEquals('כ״ג שבט, תשע״ו', $zman->toFormattedJewishHebrewDateString());
+
+        $zman = Zman::createFromJewishDate(3761, 4, 18);
+
+        $this->assertInstanceOf(Zman::class, $zman);
+        $this->assertEquals('Jan 1, 0001', $zman->toFormattedDateString());
+        $this->assertEquals('י״ח טבת, תשס״א', $zman->toFormattedJewishHebrewDateString());
     }
 }
