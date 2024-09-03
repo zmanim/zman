@@ -22,7 +22,7 @@ if (!function_exists('toSecular')) {
             throw new InvalidDateException("{$year} is not a leap year.");
         }
 
-        return Zman::parse(jdtogregorian(jewishtojd($month, $day, $year)));
+        return Zman::createFromFormat('m/d/Y', jdtogregorian(jewishtojd($month, $day, $year)))->startOfDay();
     }
 }
 
