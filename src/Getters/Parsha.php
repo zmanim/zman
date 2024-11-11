@@ -81,10 +81,18 @@ trait Parsha
         }
 
         if (!$this->isJewishLeapYear()) {
-            $offset += $shabbos > 21 ? 1 : 0;
+            $firstDayOfPesach = self::firstDayOfPesach($this->jewishYear, $galus);
+            $shabbosHagadol = $firstDayOfPesach->copy()->subWeek()->addDays(6 - $firstDayOfPesach->dayOfWeek);
+            $weeksBetweenShabbosBereishisAndShabbosHagadol = $shabbosHagadol->diffInWeeks($shabbosBereishis);
+
+            $offset += $shabbos > 21 && $weeksBetweenShabbosBereishisAndShabbosHagadol < 23 ? 1 : 0;
             $offset += $shabbos >= 27 ? 1 : 0;
             $offset += $shabbos >= 28 ? 1 : 0;
             $offset += $shabbos > 29 ? 1 : 0;
+
+            if($shabbos === 21 && $weeksBetweenShabbosBereishisAndShabbosHagadol >= 23) {
+                return $this->parshios($shabbos + $offset);
+            }
 
             if ($shabbos === 21 || $shabbos === 26 || $shabbos === 27 || $shabbos === 29) {
                 return $this->parshios($shabbos + $offset).' - '.$this->parshios($shabbos + $offset + 1);
